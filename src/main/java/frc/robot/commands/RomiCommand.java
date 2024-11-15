@@ -6,30 +6,23 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.RomiDrivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 /** An example command that uses an example subsystem. */
 public class RomiCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final RomiDrivetrain subsystem;
-  private double time;
   private double speed;
-  private double distance;
 
   /**
    * USE EITHER DISTANCE OR TIME, NOT BOTH. SET ONE OF THEM AS 0.
    * 
    * @param subsystem just type in "romi" here
    * @param speed speed of the bot (-`1, 1)
-   * @param time time (in seconds) the bot will run
-   * @param distance distance (in inches) the bot will move
    * 
    */
-  public RomiCommand(RomiDrivetrain subsystem, double speed, double time, double distance) {
+  public RomiCommand(RomiDrivetrain subsystem, double speed) {
     this.subsystem = subsystem;
-    this.time = time;
     this.speed = speed;
-    this.distance = distance;
 
     addRequirements(subsystem);
   }
@@ -51,15 +44,11 @@ public class RomiCommand extends Command {
   }
 
   // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    if (time != 0) {
-      return new WaitCommand(time).isFinished();
-    } else if (distance != 0) {
-      if (subsystem.getLeftDistanceInch() > distance) {
-        return true;
-      }
-    }
-    return false;
-  }
+  // @Override
+  // public boolean isFinished() {
+  //   if (subsystem.getLeftDistanceInch() > distance || subsystem.getRightDistanceInch() > distance) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
 }
